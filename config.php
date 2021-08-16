@@ -98,7 +98,6 @@ return [
                 "bio" => "Bio"
             ],
             "status" => [
-                "missingHelpFile" => "\n¬ Missing help file, this will affect the \".helpb\" command\n",
                 "missingJueBox" => "\n¬ Missing the Divina Commedia file!\nIts juebox will not work\n",
                 "missingBibleFile" => "\n¬ Missing the Bible file!\nIts juebox will not work\n",
                 "missingPokemonFile" => "\n¬ Missing the Pokemon Music List file!\nIts juebox will not work\n",
