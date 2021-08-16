@@ -1,12 +1,8 @@
-name: Check PHP Syntax
-on:
-  push:
-    paths:
-      - './src'
+name: PHP Linting
+on: pull_request
 jobs:
-  build_latex:
+  phplint:
+    runs-on: ubuntu-latest
     steps:
-    - name: PHP Syntax Checker (Lint)
-      uses: StephaneBour/actions-php-lint@7.3
-      with:
-        dir: './src'
+        - uses: actions/checkout@v1
+        - uses: michaelw90/PHP-Lint@master
