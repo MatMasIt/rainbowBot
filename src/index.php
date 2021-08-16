@@ -465,9 +465,6 @@ switch ($DATA["message"]["chat"]["id"]) {
 
             if (!moduleOn(".s", $DATA["message"]["chat"]["id"], $DATA, true)) break;
             $es = "";
-            if (!file_exists("help") || filesize("help") <= 0) {
-                $es .= $GLOBALS["config"]["lgbt"]["text"]["status"]["missingHelpFile"];
-            }
             if (!file_exists("DC.txt") || filesize("DC.txt") <= 0) {
                 $es .= $GLOBALS["config"]["lgbt"]["text"]["status"]["missingJueBox"];
             }
