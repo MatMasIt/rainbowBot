@@ -1,6 +1,6 @@
 # rainbowBot
 
-Official bot of [WeAreLGBT+ Network](https://t.me/wearelgbt_network)
+Official bot of [WeAreLGBT+ Network](https://t.me/wearelgbt_network) on Telegram
 
 A lot of mixed stuff accumulated over the years, and yes the source is terrible.
 
