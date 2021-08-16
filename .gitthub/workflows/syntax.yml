@@ -1,0 +1,12 @@
+name: Check PHP Syntax
+on:
+  push:
+    paths:
+      - './src'
+jobs:
+  build_latex:
+    steps:
+    - name: PHP Syntax Checker (Lint)
+      uses: StephaneBour/actions-php-lint@7.3
+      with:
+        dir: './src'
