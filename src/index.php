@@ -1279,8 +1279,13 @@ switch ($DATA["message"]["chat"]["id"]) {
                     goto beg;
                     break;
                 case "end":
+                    $t=preg_replace("/[^A-Za-z0-9]/", '', $t);
+                    $t=mb_strtolower($t);
+                    $t=trim($t);
                     switch ($t) {
-
+                        case "start":
+                            API("sendMessage", ["chat_id" => $DATA["message"]["chat"]["id"], "text" =>   $GLOBALS["config"]["lgbt"]["text"]["thanks"], "reply_to_message_id" => $DATA["message"]["message_id"]]);
+                            break;
                         case "secret":
 
                             API("sendMessage", ["chat_id" => $DATA["message"]["chat"]["id"], "text" => $GLOBALS["config"]["lgbt"]["text"]["writeYourSecret"], "reply_to_message_id" => $DATA["message"]["message_id"]]);
