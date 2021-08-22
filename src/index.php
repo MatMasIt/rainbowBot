@@ -726,8 +726,8 @@ switch ($DATA["message"]["chat"]["id"]) {
             } else {
                 //file_put_contents("test","yes");
                 $x = $people->get($rpid);
-                $u->yearsOld=years($u->birthDate);
-                $u->save();
+                $x->yearsOld=years($u->birthDate);
+                $x->save();
               
                 if (count($args) == 2) {
                     if (in_array($args[1], array_keys($x->toArray()))) {
