@@ -726,8 +726,9 @@ switch ($DATA["message"]["chat"]["id"]) {
             } else {
                 //file_put_contents("test","yes");
                 $x = $people->get($rpid);
-                //$x->yearsOld=years($u->birthDate);
-                //$x->save();
+                $u->yearsOld=years($u->birthDate);
+                $u->save();
+              
                 if (count($args) == 2) {
                     if (in_array($args[1], array_keys($x->toArray()))) {
                         $mt = makeList([$args[1] => $x->toArray()[$args[1]]]);
@@ -748,6 +749,8 @@ switch ($DATA["message"]["chat"]["id"]) {
             if ($rpid <= 0) {
                 #https://webport.altervista.org/bots/telegram/lgbt/fetchCard.php?pass=737373737361113273&id=".$uid
                 $u = $people->get($uid);
+                $u->yearsOld=years($u->birthDate);
+                $u->save();
                 photo_id_by_user($u, $DATA["message"]["chat"]["id"]);
                 API("sendChatAction", ["chat_id" => $DATA["message"]["chat"]["id"], "action" => "upload_photo"]);
                 API("sendPhoto", ["chat_id" => $DATA["message"]["chat"]["id"], "photo" => "https://webport.altervista.org/bots/telegram/lgbt/gdImg/archive/" . $uid . ".fi.jpeg?int=" . random_int(0, 10000), "reply_to_message_id" => $DATA["message"]["message_id"]]);
