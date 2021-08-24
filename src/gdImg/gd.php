@@ -5,6 +5,7 @@ function flagGetFromUser($p){
 	//orientations, sexual
  	if (contains("LESB", $o)) $re[]= "lesbian";
         if ("BI" == explode(" ",$o)[0]) $re[]="bi";
+        if (contains("FLUID", $o)) $re[]= "fluid";
 	if (contains("ACE", $o)) $re[]= "asex";
         if (contains("ARO", $o)) $re[]= "aro";
 	if (contains("ASE", $o)) $re[]= "asex";
