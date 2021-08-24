@@ -6,6 +6,7 @@ function flagGetFromUser($p){
  	if (contains("LESB", $o)) $re[]= "lesbian";
         if ("BI" == explode(" ",$o)[0]) $re[]="bi";
 	if (contains("ACE", $o)) $re[]= "asex";
+        if (contains("ARO", $o)) $re[]= "aro";
 	if (contains("ASE", $o)) $re[]= "asex";
 	if (contains("GAY", $o)) $re[]= "gay";
         if (contains("BIS", $o)) $re[]= "bi";
