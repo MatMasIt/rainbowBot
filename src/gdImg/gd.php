@@ -16,7 +16,7 @@ function flagGetFromUser($p){
 	if (contains("PAN", $o)) $re[]= "pan";
 	if (contains("LELL", $o)) $re[]= "lesbian";
 	if (contains("OMNI", $o)) $re[]= "omni";
-	if (contains("QUEST", $o)) $re[]= "questioning";
+	if (contains("QUESTIONING", $o)) $re[]= "questioning";
 	if (contains("ETERO", $o) || contains("HET", $o)) $re[]= "etero";
   //orientation, romantic
   if (contains("BIROM", $o)) $re[]= "Biromantic";
