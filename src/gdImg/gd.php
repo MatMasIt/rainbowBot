@@ -1,18 +1,24 @@
 <?php
 function flagGetFromUser($p){
-	$o = strtoupper($p->orient);
-	if (contains("LESB", $o)) return "lesbian";
-	if (contains("BI", $o)) return "bi";
-	if (contains("ACE", $o)) return "asex";
-	if (contains("ASE", $o)) return "asex";
-	if (contains("GAY", $o)) return "gay";
-	if (contains("BSX", $o)) return "bi";
-	if (contains("PAN", $o)) return "pan";
-	if (contains("LELL", $o)) return "lesbian";
-	if (contains("OMNI", $o)) return "omni";
-	if (contains("QUEST", $o)) return "questioning";
-	if (contains("ETERO", $o) || contains("HET", $o)) return "etero";
-	return false;
+	 $re=[];
+	$o = strtoupper($p->orient." ".$p->gender);
+	//orientations, sexual
+	if (contains("LESB", $o)) $re[]= "lesbian";
+ if (contains("BI", $o)) $re[]="bi";
+	if (contains("ACE", $o)) $re[]= "asex";
+	if (contains("ASE", $o)) $re[]= "asex";
+	if (contains("GAY", $o)) $re[]= "gay";
+	if (contains("BSX", $o)) $re[]= "bi";
+	if (contains("PAN", $o)) $re[]= "pan";
+	if (contains("LELL", $o)) $re[]= "lesbian";
+	if (contains("OMNI", $o)) $re[]= "omni";
+	if (contains("QUEST", $o)) $re[]= "questioning";
+	if (contains("ETERO", $o) || contains("HET", $o)) $re[]= "etero";
+  //orientation, romantic
+  
+	//gender-related
+		if(contains("MTF",$o) || contains("FTM",$o)  || contains("TRANS",$o)) $re[]="trans";
+		return $re;
 }
 function dlImage($userId,$fileName){	
 
@@ -81,7 +87,7 @@ if($id==$GLOBALS["config"]["lgbt"]["devId"]){
 list($width, $height) = getimagesize("gdImg/dev.png");
 $hw=150*$height/$width;
 if($hw>600){$hw=600;}
-    imagecopyresized($jpg_image, $photo, 800, 0, 0, 0, 500, $hw, $width, $height);
+    imagecopyresized($jpg_image, $photo, 800, 0, 0, 0, 500, $hw, $width, $height+150);
 }
 imagettftext($jpg_image, 25, 0, 720, 435, $white, $font_path, $orient);
 
@@ -95,28 +101,29 @@ $hw=500*$height/$width;
 if($hw>600){$hw=600;}
 imagecopyresized($jpg_image, $photo, 10, 100, 0, 0, 500, $hw, $width, $height);
 
-if($fln){
-	$flag = imagecreatefrompng("gdImg/flags/".$fln.".png");
-	list($width, $height) = getimagesize("gdImg/flags/".$fln.".png");
-	$w2 = $width;
-	//if($hw>600){$hw=600;}
-	imagecopyresized($jpg_image, $flag, 10, 0, 0, 0, 200, 100, $width, $height);
-	$gender = strtolower($gender);
-	$orient = strtolower($orient);
-	if(contains("mtf",$gender) || contains("ftm",$gender)  || contains("trans",$gender) || contains("mtf",$orient) || contains("ftm",$orient)  || contains("trans",$orient) ){
-		$flag = imagecreatefrompng("gdImg/flags/trans.png");
-		list($width, $height) = getimagesize("gdImg/flags/trans.png");
-		//if($hw>600){$hw=600;}
-		imagecopyresized($jpg_image, $flag, 200, 0, 0, 0, 200, 100, $width, $height);
+list($wc, $hc) = getimagesize("gdImg/cid.png");
+$ho=$hc+floor(count($fln)/6)*100;
+$image_out = imagecreatetruecolor($wc,$ho);
+ $bg_color = ImageColorAllocate ($image_out, 0, 0, 0);
+imagefill($image_out,0,0,$bg_color);
+imagecopy($image_out, $jpg_image, 0, 0, 0, 0, $wc,$hc); 
+if(count($fln)){
+	$i=0;
+	foreach($fln as $el){
+		$flag = imagecreatefrompng("gdImg/flags/".$el.".png");
+	list($width, $height) = getimagesize("gdImg/flags/".$el.".png");
+	
+	imagecopyresized($image_out, $flag, 10+200*($i%6), $hc+10+100*floor($i/6), 0, 0 , 200, 100, $width, $height);
+ $i++;
 	}
 }
 unlink($dest);
 // Send Image to Browser
-imagejpeg($jpg_image,$dest);
+imagejpeg($image_out,$dest);
 
 
 
 // Clear Memory
-imagedestroy($jpg_image);
+imagedestroy($image_out);
 }
 ?>
