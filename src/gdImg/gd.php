@@ -3,11 +3,12 @@ function flagGetFromUser($p){
 	 $re=[];
 	$o = strtoupper($p->orient." ".$p->gender);
 	//orientations, sexual
-	if (contains("LESB", $o)) $re[]= "lesbian";
- if ("BI" == explode(" ",$o)[0]) $re[]="bi";
+ 	if (contains("LESB", $o)) $re[]= "lesbian";
+        if ("BI" == explode(" ",$o)[0]) $re[]="bi";
 	if (contains("ACE", $o)) $re[]= "asex";
 	if (contains("ASE", $o)) $re[]= "asex";
 	if (contains("GAY", $o)) $re[]= "gay";
+        if (contains("BIS", $o)) $re[]= "bi";
 	if (contains("BSX", $o)) $re[]= "bi";
 	if (contains("PAN", $o)) $re[]= "pan";
 	if (contains("LELL", $o)) $re[]= "lesbian";
