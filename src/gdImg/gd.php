@@ -15,7 +15,7 @@ function flagGetFromUser($p){
 	if (contains("QUEST", $o)) $re[]= "questioning";
 	if (contains("ETERO", $o) || contains("HET", $o)) $re[]= "etero";
   //orientation, romantic
-  
+  if (contains("BIROM", $o)) $re[]= "Biromantic";
 	//gender-related
 		if(contains("MTF",$o) || contains("FTM",$o)  || contains("TRANS",$o)) $re[]="trans";
 		return $re;
