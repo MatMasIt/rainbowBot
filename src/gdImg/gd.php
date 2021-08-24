@@ -93,7 +93,7 @@ if($id==$GLOBALS["config"]["lgbt"]["devId"]){
 list($width, $height) = getimagesize("gdImg/dev.png");
 $hw=150*$height/$width;
 if($hw>600){$hw=600;}
-    imagecopyresized($jpg_image, $photo, 800, 0, 0, 0, 500, $hw, $width, $height+150);
+    imagecopyresized($jpg_image, $photo, 0, 0, 0, 0, 500, $hw, $width, $height+150);
 }
 imagettftext($jpg_image, 25, 0, 720, 435, $white, $font_path, $orient);
 
