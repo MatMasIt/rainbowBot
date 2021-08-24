@@ -4,7 +4,7 @@ function flagGetFromUser($p){
 	$o = strtoupper($p->orient." ".$p->gender);
 	//orientations, sexual
 	if (contains("LESB", $o)) $re[]= "lesbian";
- if ("BI" == $o) $re[]="bi";
+ if ("BI" == explode(" ",$o)[0]) $re[]="bi";
 	if (contains("ACE", $o)) $re[]= "asex";
 	if (contains("ASE", $o)) $re[]= "asex";
 	if (contains("GAY", $o)) $re[]= "gay";
@@ -104,7 +104,7 @@ if($hw>600){$hw=600;}
 imagecopyresized($jpg_image, $photo, 10, 100, 0, 0, 500, $hw, $width, $height);
 
 list($wc, $hc) = getimagesize("gdImg/cid.png");
-$ho=$hc+floor((count($fln)+1)/6)*100;
+$ho=$hc+floor(count($fln)/6+1)*100;
 $image_out = imagecreatetruecolor($wc,$ho);
  $bg_color = ImageColorAllocate ($image_out, 0, 0, 0);
 imagefill($image_out,0,0,$bg_color);
