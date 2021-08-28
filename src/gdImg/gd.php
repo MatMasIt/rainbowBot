@@ -106,6 +106,8 @@ list($width, $height) = getimagesize($userPhotoPath);
 $hw=500*$height/$width;
 if($hw>600){$hw=600;}
 imagecopyresized($jpg_image, $photo, 10, 100, 0, 0, 500, $hw, $width, $height);
+	
+imagettftext($jpg_image, 26, 0, 10, 100+$height+10, $white, $font_path, $u->getId()."/".time()."/".$chat_id."/".$GLOBALS["config"]["lgbt"]["version"]);
 
 list($wc, $hc) = getimagesize("gdImg/cid.png");
 $ho=$hc+floor(count($fln)/6+1)*100;
