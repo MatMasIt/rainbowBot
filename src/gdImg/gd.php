@@ -107,7 +107,7 @@ $hw=500*$height/$width;
 if($hw>600){$hw=600;}
 imagecopyresized($jpg_image, $photo, 10, 100, 0, 0, 500, $hw, $width, $height);
 	
-imagettftext($jpg_image, 26, 0, 500, 10, $white, $font_path, $id."/".time()."/".$chat_id."/".$GLOBALS["config"]["lgbt"]["version"]);
+imagettftext($jpg_image, 26, 0, 500, 30, $white, $font_path, $id."/".time()."/".$chat_id."/".$GLOBALS["config"]["lgbt"]["version"]);
 
 list($wc, $hc) = getimagesize("gdImg/cid.png");
 $ho=$hc+floor(count($fln)/6+1)*100;
