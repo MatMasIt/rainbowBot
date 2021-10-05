@@ -1,4 +1,5 @@
 <?php
+ini_set('error_log', 'errors.log');
 require_once("vendor/autoload.php");
 require("API.php");
 require("gdImg/gd.php");
@@ -301,20 +302,6 @@ file_put_contents("markovdata.txt",trim($t)."\n",FILE_APPEND);
 /*
 Is markov overweight? remove lines
 */
-$file = new SplFileObject("markovdata.txt");
-$i = 0;
-while (!$file->eof()) {
-    $i++;
-    $file->next();
-}
-if($i>1000000){
-	$lines_to_strip=1000000-$i;
-	$new_file = new SplFileObject('tempmark.txt', 'w');
-	foreach (new LimitIterator(new SplFileObject('markovdata.txt'), $line_to_strip) as $line)
-    		$new_file->fwrite($line);
-	}
-rename("tempmark.txt","markovdata.txt");
-
 beg:
 switch ($DATA["message"]["chat"]["id"]) {
 
@@ -876,10 +863,10 @@ switch ($DATA["message"]["chat"]["id"]) {
         } elseif ($t == ".RWP") {
 
             if (!moduleOn(".RWP", $DATA["message"]["chat"]["id"], $DATA, true)) break;
-            $ch  =  curl_init();
-            curl_setopt($ch,  CURLOPT_URL, $GLOBALS["config"]["lgbt"]["APIs"]["wikiRandom"]);
-            curl_setopt($ch,  CURLOPT_RETURNTRANSFER,  1);
-            $output  =  curl_exec($ch);
+            $ch  =  curl_init();
+            curl_setopt($ch,  CURLOPT_URL, $GLOBALS["config"]["lgbt"]["APIs"]["wikiRandom"]);
+            curl_setopt($ch,  CURLOPT_RETURNTRANSFER,  1);
+            $output  =  curl_exec($ch);
             curl_close($ch);
             API("sendMessage", [
                 "chat_id" => $DATA["message"]["chat"]["id"], "text" => /*json_decode(*/
@@ -1344,7 +1331,7 @@ switch ($DATA["message"]["chat"]["id"]) {
                             askNameFirst($DATA);
                             $u->status = "askName";
                             $u->save();
-                            //API("sendMessage", ["chat_id" => $DATA["message"]["chat"]["id"], "text" => "Il bot ti ricontatterà  appena non scriverai qualcosa sul gruppo.","reply_to_message_id"=>$DATA["message"]["message_id"]]);
+                            //API("sendMessage", ["chat_id" => $DATA["message"]["chat"]["id"], "text" => "Il bot ti ricontatterà  appena non scriverai qualcosa sul gruppo.","reply_to_message_id"=>$DATA["message"]["message_id"]]);
 
                             break;
                         case "opt-out":
