@@ -8,6 +8,7 @@ return [
         "logChannelId" => (-11111111111),
         "TOKEN" => "TOKEN",
         "devId"=>11111111,
+        "markovdefault" => 25,
         "modulesEnabled" => [
            "boot" => true,
             "log" => true,
@@ -17,6 +18,7 @@ return [
             "happyBirthday" => true,
             "updateUsernameData" => true,
             ".s" => true,
+            ".ai" => true,
             ".stats" => true,
             ".raBIO" => true,
             ".nr" => true,

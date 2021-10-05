@@ -104,11 +104,13 @@ function return_weighted_word($array) {
         $rand -= $weight;
     }
 }
-function markovT(){
+function markovT($len){
     $text = file_get_contents("markovdata.txt");
-    $length = 40;
+    $length = $len;
     $order = 4;
     $markov_table = generate_markov_table($text, $order);
     $markov = generate_markov_text($length, $markov_table, $order);
-    return $markov;
+    return html_entity_decode($markov, ENT_QUOTES | ENT_XML1, 'UTF-8');
 }
+$len=100;
+echo markovT($len);
