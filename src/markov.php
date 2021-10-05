@@ -112,5 +112,3 @@ function markovT($len){
     $markov = generate_markov_text($length, $markov_table, $order);
     return html_entity_decode($markov, ENT_QUOTES | ENT_XML1, 'UTF-8');
 }
-$len=100;
-echo markovT($len);
