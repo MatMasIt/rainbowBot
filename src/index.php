@@ -295,13 +295,7 @@ if ($DATA["message"]["from"]["is_bot"]) {
 $t = $DATA["message"]["text"];
 $uid = $DATA["message"]["from"]["id"];
 
-/*
-Feed the markov generator
-*/
-file_put_contents("markovdata.txt",trim($t)."\n",FILE_APPEND);
-/*
-Is markov overweight? remove lines
-*/
+
 beg:
 switch ($DATA["message"]["chat"]["id"]) {
 
@@ -428,11 +422,11 @@ switch ($DATA["message"]["chat"]["id"]) {
             $url = $GLOBALS["config"]["lgbt"]["APIs"]["tpdne"] . "?v=" . time();
             API("sendChatAction", ["chat_id" => $DATA["message"]["chat"]["id"], "action" => "upload_photo"]);
             API("sendPhoto", ["chat_id" => $DATA["message"]["chat"]["id"], "photo" => $url, "reply_to_message_id" => $DATA["message"]["message_id"]]);
-        } elseif ($t==".ai" || explode(" ", $t)[0] == ".ai") {
+        } elseif ($t==".ai") {
             if (!moduleOn(".ai", $DATA["message"]["chat"]["id"], $DATA, true)) break;
-            require("markov.php");
-            $n = (int) explode(" ", $t)[1];
-            API("sendMessage", ["chat_id" => $DATA["message"]["chat"]["id"], "text" => markovT($n?:$GLOBALS["config"]["lgbt"]["markovdefault"])]);
+            $items = explode("##",file_get_contents("markovdata.txt"));
+            $a = $items[array_rand($items)];
+            API("sendMessage", ["chat_id" => $DATA["message"]["chat"]["id"], "text" => $a]);
         } elseif ($t == ".rave" || explode(" ", $t)[0] == ".rave") {
             if (!moduleOn(".rave", $DATA["message"]["chat"]["id"], $DATA, true)) break;
             $ms = explode("\n", $t, 3)[1] ?: explode(" ", $t, 2)[1];
