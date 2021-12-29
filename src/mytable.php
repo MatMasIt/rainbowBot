@@ -45,7 +45,7 @@ $tot=0;
 <thead>
 <tr>
 <?php
-	$ka=["telegramName"=>"Nome su Telegram","username"=>"Username su Telegram","birthDate"=>"Data di nascita","name"=>"Nome","yearsOld"=>"Età","gender"=>"Genere","orient"=>"Orientamento","where"=>"Viene da","pvtNotice"=>"Avviso sui messaggi privati","bio"=>"Bio"];
+	$ka=["telegramName"=>"Nome su Telegram","username"=>"Username su Telegram","birthDate"=>"Data di nascita","name"=>"Nome","yearsOld"=>"Età","gender"=>"Genere","orient"=>"Orientamento","where"=>"Viene da","pvtNotice"=>"Avviso sui messaggi privati","bio"=>"Bio","rel"=>"Relazioni"];
 	$skip=[];
 	$in=0;
 foreach(array_keys($table) as $i){
