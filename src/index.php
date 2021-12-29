@@ -1216,7 +1216,7 @@ if (isNo($t)) {
                     $u->save();
                     API("sendMessage", ["chat_id" => $DATA["message"]["chat"]["id"], "text" => $GLOBALS["config"]["lgbt"]["text"]["bioM"], "reply_to_message_id" => $DATA["message"]["message_id"]]);
 
-                    break
+                    break;
                 case "askBio":
                     if ($u->oneEdit != $u->status) {
 
