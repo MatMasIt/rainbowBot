@@ -1185,11 +1185,38 @@ switch ($DATA["message"]["chat"]["id"]) {
                         endM($DATA);
                         break;
                     }
+                    $u->status = "askrel";
+                    $u->save();
+                    API("sendMessage", ["chat_id" => $DATA["message"]["chat"]["id"], "text" => $GLOBALS["config"]["lgbt"]["text"]["relM"], "reply_to_message_id" => $DATA["message"]["message_id"]]);
+
+                    break;
+                    case "askrel":
+                    if ($u->oneEdit != $u->status) {
+if (isNo($t)) {
+                            $u->rel = false;
+                            $u->save();
+                            API("sendMessage", ["chat_id" => $DATA["message"]["chat"]["id"], "text" =>   $GLOBALS["config"]["lgbt"]["text"]["noProblem"], "reply_to_message_id" => $DATA["message"]["message_id"]]);
+                        } else {
+                            $u->rel = $t;
+                            $u->save();
+                            API("sendMessage", ["chat_id" => $DATA["message"]["chat"]["id"], "text" =>   $GLOBALS["config"]["lgbt"]["text"]["thanks"], "reply_to_message_id" => $DATA["message"]["message_id"]]);
+                        }
+                    }
+                        
+                    if ($u->oneEdit != $u->status && $u->oneEdit) {
+                        $u->oneEdit = false;
+                        $u->status = "end";
+                        $u->save();
+                        API("sendMessage", ["chat_id" => $DATA["message"]["chat"]["id"], "text" =>   $GLOBALS["config"]["lgbt"]["text"]["updatedData"], "reply_to_message_id" => $DATA["message"]["message_id"]]);
+
+                        endM($DATA);
+                        break;
+                    }
                     $u->status = "askBio";
                     $u->save();
                     API("sendMessage", ["chat_id" => $DATA["message"]["chat"]["id"], "text" => $GLOBALS["config"]["lgbt"]["text"]["bioM"], "reply_to_message_id" => $DATA["message"]["message_id"]]);
 
-                    break;
+                    break
                 case "askBio":
                     if ($u->oneEdit != $u->status) {
 
