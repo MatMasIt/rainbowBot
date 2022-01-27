@@ -24,6 +24,8 @@ function flagGetFromUser($p){
   if (contains("MLM", $o)) $re[]= "mlm";
 	//gender-related
 		if(contains("MTF",$o) || contains("FTM",$o)  || contains("TRANS",$o)) $re[]="trans";
+        //miscellaneous
+        if (contains("FEMB", $o)) $re[]= "femboy";
 		return $re;
 }
 function dlImage($userId,$fileName){	
