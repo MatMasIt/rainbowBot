@@ -1261,13 +1261,9 @@ switch ($DATA["message"]["chat"]["id"]) {
                     if ($DATA["message"]["from"]["id"] != $GLOBALS["config"]["lgbt"]["devId"]) {
                         break;
                     }
-                    $IDL = [];
-                    foreach ($GLOBALS["config"]["lgbt"]["groups"] as $g) {
-                        $IDL[(string)$g["uid"]] = $g["id"];
-                    }
                     if ($t != ":q") {
                         foreach (explode(",", $t) as $e) {
-                            API("sendMessage", ["chat_id" => $IDL[$e], "text" => $u->tMessage]);
+                            API("sendMessage", ["chat_id" => $u->groups[$e - 1][0], "text" => $u->tMessage]);
                         }
                         API("sendMessage", ["chat_id" => $DATA["message"]["chat"]["id"], "text" => $GLOBALS["config"]["lgbt"]["text"]["done"], "reply_to_message_id" => $DATA["message"]["message_id"]]);
                     } else {
@@ -1281,12 +1277,17 @@ switch ($DATA["message"]["chat"]["id"]) {
                 case "sndPre":
                     if ($t != ":q") {
                         $str = "";
-                        foreach ($GLOBALS["config"]["lgbt"]["groups"] as $g) {
-                            $str .= $g["uid"] . ".\t" . $g["name"] . "\n";
+                        $groups = []; // [id,name],...
+                        $i = 1;
+                        foreach (file("groups") as $fg) {
+                            $g = explode(",", $fg); // id, name
+                            $groups[] = $g;
+                            $str .= $i . ".\t" . $g[1] . "\n";
+                            $i++;
                         }
-
                         API("sendMessage", ["chat_id" => $DATA["message"]["chat"]["id"], "text" => $str . "\n" . $GLOBALS["config"]["lgbt"]["text"]["csvTell"], "reply_to_message_id" => $DATA["message"]["message_id"]]);
                         $u->status = "snd";
+                        $u->groups = $groups;
                         $u->tMessage = $t;
                     } else {
                         API("sendMessage", ["chat_id" => $DATA["message"]["chat"]["id"], "text" => $GLOBALS["config"]["lgbt"]["text"]["cancelled"], "reply_to_message_id" => $DATA["message"]["message_id"]]);
@@ -1366,6 +1367,18 @@ switch ($DATA["message"]["chat"]["id"]) {
                     }
                     break;
             }
+        } else {
+            //update every time the group name
+            $lines = "";
+            foreach (file("groups") as $l) {
+                $g = explode(",", $l);
+                if ($g[0] == $DATA["message"]["chat"]["id"]) {
+                    continue;
+                }
+                $lines .= $l;
+            }
+           file_put_contents("groups", $lines. $DATA["message"]["chat"]["id"] . ", " . $DATA["message"]["chat"]["title"] . "\n");
+
         }
         break;
 }
