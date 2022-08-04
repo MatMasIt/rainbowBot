@@ -422,9 +422,9 @@ switch ($DATA["message"]["chat"]["id"]) {
             $url = $GLOBALS["config"]["lgbt"]["APIs"]["tpdne"] . "?v=" . time();
             API("sendChatAction", ["chat_id" => $DATA["message"]["chat"]["id"], "action" => "upload_photo"]);
             API("sendPhoto", ["chat_id" => $DATA["message"]["chat"]["id"], "photo" => $url, "reply_to_message_id" => $DATA["message"]["message_id"]]);
-        } elseif ($t==".ai") {
+        } elseif ($t == ".ai") {
             if (!moduleOn(".ai", $DATA["message"]["chat"]["id"], $DATA, true)) break;
-            $items = explode("##",file_get_contents("markovdata.txt"));
+            $items = explode("##", file_get_contents("markovdata.txt"));
             $a = $items[array_rand($items)];
             API("sendMessage", ["chat_id" => $DATA["message"]["chat"]["id"], "text" => $a]);
         } elseif ($t == ".rave" || explode(" ", $t)[0] == ".rave") {
@@ -523,60 +523,57 @@ switch ($DATA["message"]["chat"]["id"]) {
                 API("sendChatAction", ["chat_id" => $DATA["message"]["chat"]["id"], "action" => "upload_photo"]);
                 API("sendPhoto", ["chat_id" => $DATA["message"]["chat"]["id"], "photo" => $url, "reply_to_message_id" => $DATA["message"]["message_id"]]);
             }
-        } elseif ($t == ".eva" || trim(explode("\n",$t)[0])==".eva" ) {
+        } elseif ($t == ".eva" || trim(explode("\n", $t)[0]) == ".eva") {
             if (!moduleOn(".eva", $DATA["message"]["chat"]["id"], $DATA, true)) break;
-            $l=explode("\n",$t);
-            if(count($l)==1 || $l[1]=="n"){
-                $list=[
-                
-                    $GLOBALS["config"]["lgbt"]["baseurlpath"]."evas/frame_00_delay-0.8s.gif",
-                    $GLOBALS["config"]["lgbt"]["baseurlpath"]."evas/frame_01_delay-0.8s.gif",
-                    $GLOBALS["config"]["lgbt"]["baseurlpath"]."evas/frame_02_delay-0.8s.gif",
-                    $GLOBALS["config"]["lgbt"]["baseurlpath"]."evas/frame_03_delay-0.8s.gif",
-                    $GLOBALS["config"]["lgbt"]["baseurlpath"]."evas/frame_04_delay-0.8s.gif",
-                    $GLOBALS["config"]["lgbt"]["baseurlpath"]."evas/frame_05_delay-0.8s.gif",
-                    $GLOBALS["config"]["lgbt"]["baseurlpath"]."evas/frame_06_delay-0.8s.gif",
-                    $GLOBALS["config"]["lgbt"]["baseurlpath"]."evas/frame_07_delay-0.8s.gif",
-                    $GLOBALS["config"]["lgbt"]["baseurlpath"]."evas/frame_08_delay-0.8s.gif",
-                    $GLOBALS["config"]["lgbt"]["baseurlpath"]."evas/frame_09_delay-0.8s.gif",
-                    $GLOBALS["config"]["lgbt"]["baseurlpath"]."evas/frame_10_delay-0.8s.gif",
-                    $GLOBALS["config"]["lgbt"]["baseurlpath"]."evas/frame_11_delay-0.8s.gif",
-                    $GLOBALS["config"]["lgbt"]["baseurlpath"]."evas/frame_12_delay-0.8s.gif",
-                    $GLOBALS["config"]["lgbt"]["baseurlpath"]."evas/frame_13_delay-0.8s.gif",
-                    $GLOBALS["config"]["lgbt"]["baseurlpath"]."evas/frame_14_delay-0.8s.gif",
-                    $GLOBALS["config"]["lgbt"]["baseurlpath"]."evas/frame_15_delay-0.8s.gif",
-                    $GLOBALS["config"]["lgbt"]["baseurlpath"]."evas/frame_16_delay-0.8s.gif",
-                    $GLOBALS["config"]["lgbt"]["baseurlpath"]."evas/frame_17_delay-0.8s.gif",
-                    $GLOBALS["config"]["lgbt"]["baseurlpath"]."evas/frame_18_delay-0.8s.gif",
-                    $GLOBALS["config"]["lgbt"]["baseurlpath"]."evas/frame_19_delay-0.8s.gif",
-                    $GLOBALS["config"]["lgbt"]["baseurlpath"]."evas/frame_20_delay-0.8s.gif",
-                    $GLOBALS["config"]["lgbt"]["baseurlpath"]."evas/frame_21_delay-0.8s.gif",
-                    $GLOBALS["config"]["lgbt"]["baseurlpath"]."evas/frame_22_delay-0.8s.gif",
-                    $GLOBALS["config"]["lgbt"]["baseurlpath"]."evas/frame_23_delay-0.8s.gif",
-                    $GLOBALS["config"]["lgbt"]["baseurlpath"]."evas/frame_24_delay-0.8s.gif",
-                    $GLOBALS["config"]["lgbt"]["baseurlpath"]."evas/frame_25_delay-1s.gif"
-    
+            $l = explode("\n", $t);
+            if (count($l) == 1 || $l[1] == "n") {
+                $list = [
+
+                    $GLOBALS["config"]["lgbt"]["baseurlpath"] . "evas/frame_00_delay-0.8s.gif",
+                    $GLOBALS["config"]["lgbt"]["baseurlpath"] . "evas/frame_01_delay-0.8s.gif",
+                    $GLOBALS["config"]["lgbt"]["baseurlpath"] . "evas/frame_02_delay-0.8s.gif",
+                    $GLOBALS["config"]["lgbt"]["baseurlpath"] . "evas/frame_03_delay-0.8s.gif",
+                    $GLOBALS["config"]["lgbt"]["baseurlpath"] . "evas/frame_04_delay-0.8s.gif",
+                    $GLOBALS["config"]["lgbt"]["baseurlpath"] . "evas/frame_05_delay-0.8s.gif",
+                    $GLOBALS["config"]["lgbt"]["baseurlpath"] . "evas/frame_06_delay-0.8s.gif",
+                    $GLOBALS["config"]["lgbt"]["baseurlpath"] . "evas/frame_07_delay-0.8s.gif",
+                    $GLOBALS["config"]["lgbt"]["baseurlpath"] . "evas/frame_08_delay-0.8s.gif",
+                    $GLOBALS["config"]["lgbt"]["baseurlpath"] . "evas/frame_09_delay-0.8s.gif",
+                    $GLOBALS["config"]["lgbt"]["baseurlpath"] . "evas/frame_10_delay-0.8s.gif",
+                    $GLOBALS["config"]["lgbt"]["baseurlpath"] . "evas/frame_11_delay-0.8s.gif",
+                    $GLOBALS["config"]["lgbt"]["baseurlpath"] . "evas/frame_12_delay-0.8s.gif",
+                    $GLOBALS["config"]["lgbt"]["baseurlpath"] . "evas/frame_13_delay-0.8s.gif",
+                    $GLOBALS["config"]["lgbt"]["baseurlpath"] . "evas/frame_14_delay-0.8s.gif",
+                    $GLOBALS["config"]["lgbt"]["baseurlpath"] . "evas/frame_15_delay-0.8s.gif",
+                    $GLOBALS["config"]["lgbt"]["baseurlpath"] . "evas/frame_16_delay-0.8s.gif",
+                    $GLOBALS["config"]["lgbt"]["baseurlpath"] . "evas/frame_17_delay-0.8s.gif",
+                    $GLOBALS["config"]["lgbt"]["baseurlpath"] . "evas/frame_18_delay-0.8s.gif",
+                    $GLOBALS["config"]["lgbt"]["baseurlpath"] . "evas/frame_19_delay-0.8s.gif",
+                    $GLOBALS["config"]["lgbt"]["baseurlpath"] . "evas/frame_20_delay-0.8s.gif",
+                    $GLOBALS["config"]["lgbt"]["baseurlpath"] . "evas/frame_21_delay-0.8s.gif",
+                    $GLOBALS["config"]["lgbt"]["baseurlpath"] . "evas/frame_22_delay-0.8s.gif",
+                    $GLOBALS["config"]["lgbt"]["baseurlpath"] . "evas/frame_23_delay-0.8s.gif",
+                    $GLOBALS["config"]["lgbt"]["baseurlpath"] . "evas/frame_24_delay-0.8s.gif",
+                    $GLOBALS["config"]["lgbt"]["baseurlpath"] . "evas/frame_25_delay-1s.gif"
+
                 ];
-                if($l[1]=="n"){
-                    $url=$list[$l[2]-1]?:$list[array_rand($list)];
-                }
-                else{
-                    $url=$list[array_rand($list)];
+                if ($l[1] == "n") {
+                    $url = $list[$l[2] - 1] ?: $list[array_rand($list)];
+                } else {
+                    $url = $list[array_rand($list)];
                 }
                 API("sendChatAction", ["chat_id" => $DATA["message"]["chat"]["id"], "action" => "upload_photo"]);
                 API("sendPhoto", ["chat_id" => $DATA["message"]["chat"]["id"], "photo" => $url, "reply_to_message_id" => $DATA["message"]["message_id"]]);
                 break;
             }
-            $list=[];
-            for($i=1;$i<count($l);$i++){
-                if($i>4) $list[4].="\n".trim($l[$i]);
-                $list[]=trim($l[$i]);
+            $list = [];
+            for ($i = 1; $i < count($l); $i++) {
+                if ($i > 4) $list[4] .= "\n" . trim($l[$i]);
+                $list[] = trim($l[$i]);
             }
             API("sendChatAction", ["chat_id" => $DATA["message"]["chat"]["id"], "action" => "upload_photo"]);
-            API("sendPhoto", ["chat_id" => $DATA["message"]["chat"]["id"], "photo" => "https://api.apiflash.com/v1/urltoimage?access_key=9f4b8514390e45c3aff7350c635587a8&url=http%3A%2F%2Fwebport.altervista.org%2Fbots%2Ftelegram%2Flgbt%2Feva.php%3Fdata%3D".urlencode(json_encode($list))."&height=478&width=600", "reply_to_message_id" => $DATA["message"]["message_id"]]);
-        
-        }
-         elseif ($t == ".joke") {
+            API("sendPhoto", ["chat_id" => $DATA["message"]["chat"]["id"], "photo" => "https://api.apiflash.com/v1/urltoimage?access_key=9f4b8514390e45c3aff7350c635587a8&url=http%3A%2F%2Fwebport.altervista.org%2Fbots%2Ftelegram%2Flgbt%2Feva.php%3Fdata%3D" . urlencode(json_encode($list)) . "&height=478&width=600", "reply_to_message_id" => $DATA["message"]["message_id"]]);
+        } elseif ($t == ".joke") {
 
             if (!moduleOn(".joke", $DATA["message"]["chat"]["id"], $DATA, true)) break;
             $do = json_decode(file_get_contents($GLOBALS["config"]["lgbt"]["APIs"]["jokes"]), true);
@@ -731,9 +728,9 @@ switch ($DATA["message"]["chat"]["id"]) {
             } else {
                 //file_put_contents("test","yes");
                 $x = $people->get($rpid);
-                $x->yearsOld=years($u->birthDate);
+                $x->yearsOld = years($u->birthDate);
                 $x->save();
-              
+
                 if (count($args) == 2) {
                     if (in_array($args[1], array_keys($x->toArray()))) {
                         $mt = makeList([$args[1] => $x->toArray()[$args[1]]]);
@@ -754,7 +751,7 @@ switch ($DATA["message"]["chat"]["id"]) {
             if ($rpid <= 0) {
                 #https://webport.altervista.org/bots/telegram/lgbt/fetchCard.php?pass=737373737361113273&id=".$uid
                 $u = $people->get($uid);
-                $u->yearsOld=years($u->birthDate);
+                $u->yearsOld = years($u->birthDate);
                 $u->save();
                 photo_id_by_user($u, $DATA["message"]["chat"]["id"]);
                 API("sendChatAction", ["chat_id" => $DATA["message"]["chat"]["id"], "action" => "upload_photo"]);
@@ -782,9 +779,7 @@ switch ($DATA["message"]["chat"]["id"]) {
                 } while (empty(trim($list[$i])));
             }
             API("sendMessage", ["chat_id" => $DATA["message"]["chat"]["id"], "text" => trim($list[$i]), "reply_to_message_id" => $DATA["message"]["message_id"]]);
-        }
-        
-        elseif ($t == ".NLG" || explode(" ", $t)[0] == ".NLG") {
+        } elseif ($t == ".NLG" || explode(" ", $t)[0] == ".NLG") {
 
             if (!moduleOn(".NLG", $DATA["message"]["chat"]["id"], $DATA, true)) break;
             $a = explode(" ", $t);
@@ -797,9 +792,7 @@ switch ($DATA["message"]["chat"]["id"]) {
                 } while (empty(trim($list[$i])));
             }
             API("sendMessage", ["chat_id" => $DATA["message"]["chat"]["id"], "text" => trim($list[$i]), "reply_to_message_id" => $DATA["message"]["message_id"]]);
-        }
-        
-        elseif ($t == ".nr" || explode(" ", $t)[0] == ".nr") {
+        } elseif ($t == ".nr" || explode(" ", $t)[0] == ".nr") {
 
             if (!moduleOn(".nr", $DATA["message"]["chat"]["id"], $DATA, true)) break;
             $a = explode(" ", $t);
@@ -811,10 +804,8 @@ switch ($DATA["message"]["chat"]["id"]) {
                     $i = array_rand($list);
                 } while (empty(trim($list[$i])));
             }
-            API("sendMessage", ["chat_id" => $DATA["message"]["chat"]["id"], "text" => "The Nazi oracle says:\n".trim($list[$i]), "reply_to_message_id" => $DATA["message"]["message_id"]]);
-        }
-        
-        elseif ($t == ".bibbiaJuebox" || explode(" ", $t)[0] == ".bibbiaJuebox") {
+            API("sendMessage", ["chat_id" => $DATA["message"]["chat"]["id"], "text" => "The Nazi oracle says:\n" . trim($list[$i]), "reply_to_message_id" => $DATA["message"]["message_id"]]);
+        } elseif ($t == ".bibbiaJuebox" || explode(" ", $t)[0] == ".bibbiaJuebox") {
             if (!moduleOn(".bibbiaJuebox", $DATA["message"]["chat"]["id"], $DATA, true)) break;
             $a = explode(" ", $t);
             $list = file("bibbia.txt", FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
@@ -1026,9 +1017,17 @@ switch ($DATA["message"]["chat"]["id"]) {
             $u = $people->get($uid);
             switch ($u->status) {
                 case "askDm":
-                    askNameFirst($DATA, $u->oneEdit == "askDm");
-                    $u->status = "askName";
-                    $u->save();
+                    API("sendMessage", ["chat_id" => $DATA["message"]["chat"]["id"], "text" => "Per procedere, occorre acconsentire alla privacy policy:\n https://telegra.ph/Rainbow-Bot----Privacy-policy-08-04 \n Scrivi \"Sì\" per continuare.", "reply_to_message_id" => $DATA["message"]["message_id"]]);
+                    break;
+                case "consent":
+                    $a = strtolower(trim($t));
+                    if ($a == "sì" || $a == "si" || $a == "ok" || $a == "yes") {
+                        askNameFirst($DATA, $u->oneEdit == "askDm");
+                        $u->status = "askName";
+                        $u->save();
+                    } else {
+                        API("sendMessage", ["chat_id" => $DATA["message"]["chat"]["id"], "text" =>  "Nessun problema, scrivi \"sì\" in qualsiasi momento se hai un ripensamento", "reply_to_message_id" => $DATA["message"]["message_id"]]);
+                    }
                     break;
                 case "askName":
                     if ($u->oneEdit != $u->status) {
@@ -1190,9 +1189,9 @@ switch ($DATA["message"]["chat"]["id"]) {
                     API("sendMessage", ["chat_id" => $DATA["message"]["chat"]["id"], "text" => $GLOBALS["config"]["lgbt"]["text"]["relM"], "reply_to_message_id" => $DATA["message"]["message_id"]]);
 
                     break;
-                    case "askrel":
+                case "askrel":
                     if ($u->oneEdit != $u->status) {
-if (isNo($t)) {
+                        if (isNo($t)) {
                             $u->rel = false;
                             $u->save();
                             API("sendMessage", ["chat_id" => $DATA["message"]["chat"]["id"], "text" =>   $GLOBALS["config"]["lgbt"]["text"]["noProblem"], "reply_to_message_id" => $DATA["message"]["message_id"]]);
@@ -1202,7 +1201,7 @@ if (isNo($t)) {
                             API("sendMessage", ["chat_id" => $DATA["message"]["chat"]["id"], "text" =>   $GLOBALS["config"]["lgbt"]["text"]["thanks"], "reply_to_message_id" => $DATA["message"]["message_id"]]);
                         }
                     }
-                        
+
                     if ($u->oneEdit != $u->status && $u->oneEdit) {
                         $u->oneEdit = false;
                         $u->status = "end";
@@ -1314,9 +1313,9 @@ if (isNo($t)) {
                     goto beg;
                     break;
                 case "end":
-                    $t=preg_replace("/[^A-Za-z0-9]/", '', $t);
-                    $t=mb_strtolower($t);
-                    $t=trim($t);
+                    $t = preg_replace("/[^A-Za-z0-9]/", '', $t);
+                    $t = mb_strtolower($t);
+                    $t = trim($t);
                     switch ($t) {
                         case "start":
                             API("sendMessage", ["chat_id" => $DATA["message"]["chat"]["id"], "text" =>   $GLOBALS["config"]["lgbt"]["text"]["thanks"], "reply_to_message_id" => $DATA["message"]["message_id"]]);
