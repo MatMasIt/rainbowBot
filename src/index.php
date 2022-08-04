@@ -1017,7 +1017,9 @@ switch ($DATA["message"]["chat"]["id"]) {
             $u = $people->get($uid);
             switch ($u->status) {
                 case "askDm":
-                    API("sendMessage", ["chat_id" => $DATA["message"]["chat"]["id"], "text" => "Per procedere, occorre acconsentire alla privacy policy:\n https://telegra.ph/Rainbow-Bot----Privacy-policy-08-04 \n Scrivi \"Sì\" per continuare.", "reply_to_message_id" => $DATA["message"]["message_id"]]);
+                    API("sendMessage", ["chat_id" => $DATA["message"]["chat"]["id"], "text" => $GLOBALS["config"]["lgbt"]["text"]["privacy"], "reply_to_message_id" => $DATA["message"]["message_id"]]);
+                    $u->status = "consent";
+                    $u->save();
                     break;
                 case "consent":
                     $a = strtolower(trim($t));
@@ -1026,7 +1028,7 @@ switch ($DATA["message"]["chat"]["id"]) {
                         $u->status = "askName";
                         $u->save();
                     } else {
-                        API("sendMessage", ["chat_id" => $DATA["message"]["chat"]["id"], "text" =>  "Nessun problema, scrivi \"sì\" in qualsiasi momento se hai un ripensamento", "reply_to_message_id" => $DATA["message"]["message_id"]]);
+                        API("sendMessage", ["chat_id" => $DATA["message"]["chat"]["id"], "text" =>  $GLOBALS["config"]["lgbt"]["text"]["privacyNo"], "reply_to_message_id" => $DATA["message"]["message_id"]]);
                     }
                     break;
                 case "askName":
@@ -1354,7 +1356,7 @@ switch ($DATA["message"]["chat"]["id"]) {
                             //API("sendMessage", ["chat_id" => $DATA["message"]["chat"]["id"], "text" => "Il bot ti ricontatterà  appena non scriverai qualcosa sul gruppo.","reply_to_message_id"=>$DATA["message"]["message_id"]]);
 
                             break;
-                        case "opt-out":
+                        case "optout":
                             API("sendMessage", ["chat_id" => $DATA["message"]["chat"]["id"], "text" => $GLOBALS["config"]["lgbt"]["text"]["dataErased"], "reply_to_message_id" => $DATA["message"]["message_id"]]);
                             $people->get($uid)->delete();
                             break;
