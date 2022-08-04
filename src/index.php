@@ -1360,6 +1360,9 @@ switch ($DATA["message"]["chat"]["id"]) {
                             API("sendMessage", ["chat_id" => $DATA["message"]["chat"]["id"], "text" => $GLOBALS["config"]["lgbt"]["text"]["dataErased"], "reply_to_message_id" => $DATA["message"]["message_id"]]);
                             $people->get($uid)->delete();
                             break;
+                        default:
+                            endM($DATA);
+                            break;
                     }
                     break;
             }
