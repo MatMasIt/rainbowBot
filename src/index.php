@@ -1343,9 +1343,9 @@ switch ($DATA["message"]["chat"]["id"]) {
                             API("sendMessage", ["chat_id" => $DATA["message"]["chat"]["id"], "text" => makeList($u->toArray()), "reply_to_message_id" => $DATA["message"]["message_id"]]);
                             break;
                         case "card":
-                            photo_id_by_user($p, $DATA["message"]["chat"]["id"]);
+                            photo_id_by_user($u, $DATA["message"]["chat"]["id"]);
                             API("sendChatAction", ["chat_id" => $DATA["message"]["chat"]["id"], "action" => "upload_photo"]);
-                            API("sendPhoto", ["chat_id" => $DATA["message"]["chat"]["id"], "photo" => "https://webport.altervista.org/bots/telegram/lgbt/fetchCard.php?pass=737373737361113273&id=" . $e->getId() . "&int=" . random_int(0, 10000), "reply_to_message_id" => $DATA["message"]["message_id"]]);
+                            API("sendPhoto", ["chat_id" => $DATA["message"]["chat"]["id"], "photo" => "https://webport.altervista.org/bots/telegram/lgbt/fetchCard.php?pass=737373737361113273&id=" . $u->getId() . "&int=" . random_int(0, 10000), "reply_to_message_id" => $DATA["message"]["message_id"]]);
                             break;
                         case "edit":
                             $i = 1;
