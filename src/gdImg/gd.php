@@ -28,6 +28,29 @@ function flagGetFromUser($p){
         if (contains("FEMB", $o)) $re[]= "femboy";
         $o = strtoupper($p->where);
 	if(contains("PIEMONTE", $o)) $re[]="piemonte";
+	if(contains("LOMBARDIA", $o)) $re[]="lombardia";
+	if(contains("VENETO", $o)) $re[]="veneto";
+	if(contains("FRIULI", $o)) $re[]="friuli";
+	if(contains("TRENTINO", $o)) $re[]="trentino";
+	if(contains("LIGURIA", $o)) $re[]="liguria";
+	if(contains("EMILIA", $o)) $re[]="emilia";
+	if(contains("AOSTA", $o)) $re[]="valleAosta";
+	if(contains("TOSCANIA", $o)) $re[]="toscania";
+	if(contains("MARCHE", $o)) $re[]="marche";
+	if(contains("ABRUZZO", $o)) $re[]="abruzzo";
+	if(contains("MOLISE", $o)) $re[]="molise";
+	if(contains("LAZIO", $o)) $re[]="lazio";
+	if(contains("CANPANIA", $o)) $re[]="campania";
+	if(contains("BASILICATA", $o)) $re[]="basilicata";
+	if(contains("CALABRIA", $o)) $re[]="calabria";
+	if(contains("PUGLIA", $o)) $re[]="puglia";
+	if(contains("SICILIA", $o)) $re[]="sicilia";
+	if(contains("SARDEGNA", $o)) $re[]="sardegna";
+	if(contains("UMBRIA", $o)) $re[]="umbria";
+	if(contains("EU", $o)) $re[]="eu";
+	if(contains("ITALIA", $o)) $re[]="it";
+	if(contains("FRANCIA", $o)) $re[]="fr";
+	if(contains("GERMANIA", $o)) $re[]="de";
 		return $re;
 }
 function dlImage($userId,$fileName){	
