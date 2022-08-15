@@ -53,6 +53,7 @@ function flagGetFromUser($p){
 	if(contains("ITALIA", $o)) $re[]="it";
 	if(contains("FRANCIA", $o)) $re[]="fr";
 	if(contains("GERMANIA", $o)) $re[]="de";
+	if(contains("SLOVENIA", $o)) $re[]="slovenia";
 		return $re;
 }
 function dlImage($userId,$fileName){	
