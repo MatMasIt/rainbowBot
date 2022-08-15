@@ -26,6 +26,8 @@ function flagGetFromUser($p){
 		if(contains("MTF",$o) || contains("FTM",$o)  || contains("TRANS",$o)) $re[]="trans";
         //miscellaneous
         if (contains("FEMB", $o)) $re[]= "femboy";
+        $o = strtoupper($p->where);
+	if(contains("PIEMONTE", $o)) $re[]="piemonte";
 		return $re;
 }
 function dlImage($userId,$fileName){	
