@@ -263,7 +263,6 @@ function relgbt()
 
     return $li;
 }
-//file_put_contents("test.txt",file_get_contents("php://input"),FILE_APPEND);
 $DATA = json_decode(file_get_contents("php://input"), true);
 $correl =  $GLOBALS["config"]["lgbt"]["correlationMenu"];
 
@@ -295,7 +294,7 @@ if ($DATA["message"]["from"]["is_bot"]) {
 $t = $DATA["message"]["text"];
 $uid = $DATA["message"]["from"]["id"];
 
-
+//file_put_contents("dump", json_encode($DATA,JSON_PRETTY_PRINT)."\n", FILE_APPEND);
 beg:
 switch ($DATA["message"]["chat"]["id"]) {
 
@@ -355,62 +354,36 @@ switch ($DATA["message"]["chat"]["id"]) {
             $ms = str_replace("*p*", "з", $ms);
             $ms = str_replace("*P*", "з", $ms);
             API("sendMessage", ["chat_id" => $DATA["message"]["chat"]["id"], "text" => $ms, "reply_to_message_id" => $DATA["message"]["message_id"]]);
-        } elseif ($t == ".watch") {
-            if (!moduleOn(".watch", $DATA["message"]["chat"]["id"], $DATA, true)) break;
-            if (!is_admin($DATA["message"]["from"]["id"], $DATA["message"]["chat"]["id"])) {
-                break;
+        } elseif ($t == ".flip" || explode(" ", $t)[0] == ".flip") {
+        
+            //if (!moduleOn(".flip", $DATA["message"]["chat"]["id"], $DATA, true)) break;
+            $ms = strtolower(trim(explode(" ", $t, 2)[1]));
+            $ps = $DATA["message"]["reply_to_message"]["photo"];
+            if (empty($ps)) {
+                API("sendMessage", ["chat_id" => $DATA["message"]["chat"]["id"], "text" => "Devi citare una foto", "reply_to_message_id" => $DATA["message"]["message_id"]]);
             }
-            $u = $people->get($DATA["message"]["reply_to_message"]["from"]["id"]);
-            $u->watch = true;
-            $u->save();
-            API("sendMessage", ["chat_id" => $DATA["message"]["chat"]["id"], "text" => $GLOBALS["config"]["lgbt"]["text"]["eye"]]);
-            API("sendMessage", ["chat_id" => (-1001210906612), "text" => $u->telegramName . " ( @" . $u->username . " ) " . $GLOBALS["config"]["lgbt"]["text"]["isUnderObservation"]]);
-        } elseif ($t == ".unwatchAll") {
-            if (!moduleOn(".unwatchAll", $DATA["message"]["chat"]["id"], $DATA, true)) break;
-            $el = "";
-            if (!is_admin($DATA["message"]["from"]["id"], $DATA["message"]["chat"]["id"])) {
-                break;
-            }
-            foreach ($people->where("watch", "=", "true")
-                ->results(false) as $p) {
-                $p->watch = false;
-                $el .= $p->telegramName . ", ";
-            }
-            if (!empty($el)) {
-                $el = substr($string, 0, -2);
-                $m =  $GLOBALS["config"]["lgbt"]["text"]["freeBeg"] . $el;
-            } else {
-                $m =  $GLOBALS["config"]["lgbt"]["text"]["allFree"];
-            }
-            API("sendMessage", ["chat_id" => $DATA["message"]["chat"]["id"], "text" => $m]);
-        } elseif ($t == ".unwatch") {
-
-            if (!moduleOn(".unwatch", $DATA["message"]["chat"]["id"], $DATA, true)) break;
-
-            if (!is_admin($DATA["message"]["from"]["id"], $DATA["message"]["chat"]["id"])) {
-                break;
-            }
-            $u = $people->get($DATA["message"]["reply_to_message"]["from"]["id"]);
-            $u->watch = false;
-            $u->save();
-            API("sendMessage", ["chat_id" => $DATA["message"]["chat"]["id"], "text" => $GLOBALS["config"]["lgbt"]["text"]["freedom"]]);
-            API("sendMessage", ["chat_id" => (-1001210906612), "text" => $u->telegramName . " ( @" . $u->username . " )" . $GLOBALS["config"]["lgbt"]["text"]["notObservedAnymore"]]);
-        } elseif ($t == ".listWatch") {
-
-            if (!moduleOn(".listWatch", $DATA["message"]["chat"]["id"], $DATA, true)) break;
-            if (!is_admin($DATA["message"]["from"]["id"], $DATA["message"]["chat"]["id"])) {
-                break;
-            }
-            $us = $people->where("watch", "=", "true")
-                ->results(false);
-            $e = "";
-            foreach ($us as $u) {
-                $e .= "\n";
-                $e .= makeList($u->toArray());
-                $e .= "\n-------\n";
-            }
-            API("sendMessage", ["chat_id" => $DATA["message"]["chat"]["id"], "text" => $e]);
-        } elseif ($t == ".inspire") {
+            
+            $fO=API("getFile", ["file_id" => $ps[count($ps)-1]["file_id"]]);
+            
+            $fu="https://api.telegram.org/file/".$GLOBALS["config"]["lgbt"]["TOKEN"]."/".$fO["result"]["file_path"]; 
+            $filename = "temp/".bin2hex(random_bytes(6)).".jpg";
+            
+            $ch = curl_init($fu);
+            $fp = fopen($filename, 'wb+');
+            curl_setopt($ch, CURLOPT_FILE, $fp); 
+            curl_setopt($ch, CURLOPT_HEADER, 0); 
+            curl_exec($ch);
+            curl_close($ch); 
+            fclose($fp);
+            $im = imagecreatefromjpeg($filename);
+           // Flip it vertically
+           if($ms == "v" || $ms == "b") imageflip($im, IMG_FLIP_VERTICAL);
+           if($ms == "h" || $ms == "b" || strlen($ms)==0) imageflip($im, IMG_FLIP_HORIZONTAL);
+           imagejpeg($im,$filename);
+            API("sendChatAction", ["chat_id" => $DATA["message"]["chat"]["id"], "action" => "upload_photo"]);
+            API("sendPhoto", ["chat_id" => $DATA["message"]["chat"]["id"], "photo" => "https://webport.altervista.org/bots/telegram/lgbt/" . $filename . "?int=" . random_int(0, 10000), "reply_to_message_id" => $DATA["message"]["message_id"]]);
+            
+            } elseif ($t == ".inspire") {
             if (!moduleOn(".inspire", $DATA["message"]["chat"]["id"], $DATA, true)) break;
 
             $url = file_get_contents($GLOBALS["config"]["lgbt"]["APIs"]["inspire"]);
@@ -653,25 +626,6 @@ switch ($DATA["message"]["chat"]["id"]) {
                     API("sendMessage", ["chat_id" => $DATA["message"]["chat"]["id"], "text" => $dt["list"][0]["definition"], "reply_to_message_id" => $DATA["message"]["message_id"]]);
                 }
             }
-        } elseif (explode("\n", $t)[0] == ".emu") {
-
-            if (!moduleOn(".emu", $DATA["message"]["chat"]["id"], $DATA, true)) break;
-            $ex = explode("\n", $t);
-            unset($ex[0]);
-            array_unshift($ex, $DATA["message"]["chat"]["id"]);
-            array_unshift($ex, time());
-            $url = "https://mascmt.ddns.net/gb/index.php?auth=passwordLOL&do=" . urlencode(implode("|", $ex));
-            $ch = curl_init();
-            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-            curl_setopt($ch, CURLOPT_HEADER, false);
-            curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
-            curl_setopt($ch, CURLOPT_URL, $url);
-            curl_setopt($ch, CURLOPT_REFERER, $url);
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            $result = curl_exec($ch);
-            curl_close($ch);
-            //	API("sendMessage", ["chat_id" => $DATA["message"]["chat"]["id"], "text" => "Sent to emulator,".urlencode(implode("|",$ex))." ".file_get_contents($url)." ".$url,"reply_to_message_id"=>$DATA["message"]["message_id"]]);
-
         } elseif ($t == ".ez" || explode(" ", $t)[0] == ".ez") {
             if (!moduleOn(".ez", $DATA["message"]["chat"]["id"], $DATA, true)) break;
             $arr
