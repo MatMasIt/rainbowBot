@@ -366,7 +366,8 @@ switch ($DATA["message"]["chat"]["id"]) {
             $fO=API("getFile", ["file_id" => $ps[count($ps)-1]["file_id"]]);
             
             $fu="https://api.telegram.org/file/".$GLOBALS["config"]["lgbt"]["TOKEN"]."/".$fO["result"]["file_path"]; 
-            $filename = "temp/".bin2hex(random_bytes(6)).".jpg";
+            $io = bin2hex(random_bytes(6));
+            $filename = "temp/".$io.".jpg";
             
             $ch = curl_init($fu);
             $fp = fopen($filename, 'wb+');
@@ -381,7 +382,7 @@ switch ($DATA["message"]["chat"]["id"]) {
            if($ms == "h" || $ms == "b" || strlen($ms)==0) imageflip($im, IMG_FLIP_HORIZONTAL);
            imagejpeg($im,$filename);
             API("sendChatAction", ["chat_id" => $DATA["message"]["chat"]["id"], "action" => "upload_photo"]);
-            API("sendPhoto", ["chat_id" => $DATA["message"]["chat"]["id"], "photo" => "https://webport.altervista.org/bots/telegram/lgbt/" . $filename . "?int=" . random_int(0, 10000), "reply_to_message_id" => $DATA["message"]["message_id"]]);
+            API("sendPhoto", ["chat_id" => $DATA["message"]["chat"]["id"], "photo" => "https://webport.altervista.org/bots/telegram/lgbt/fetchTemp.php?id=". $io. "&int=" . random_int(0, 10000), "reply_to_message_id" => $DATA["message"]["message_id"]]);
             
             } elseif ($t == ".inspire") {
             if (!moduleOn(".inspire", $DATA["message"]["chat"]["id"], $DATA, true)) break;
