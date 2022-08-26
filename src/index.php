@@ -362,7 +362,10 @@ switch ($DATA["message"]["chat"]["id"]) {
             if (empty($ps)) {
                 API("sendMessage", ["chat_id" => $DATA["message"]["chat"]["id"], "text" => "Devi citare una foto", "reply_to_message_id" => $DATA["message"]["message_id"]]);
             }
-            
+            else{
+            if (!file_exists('temp')) {
+               mkdir('temp');
+            }
             $fO=API("getFile", ["file_id" => $ps[count($ps)-1]["file_id"]]);
             
             $fu="https://api.telegram.org/file/".$GLOBALS["config"]["lgbt"]["TOKEN"]."/".$fO["result"]["file_path"]; 
@@ -383,7 +386,7 @@ switch ($DATA["message"]["chat"]["id"]) {
            imagejpeg($im,$filename);
             API("sendChatAction", ["chat_id" => $DATA["message"]["chat"]["id"], "action" => "upload_photo"]);
             API("sendPhoto", ["chat_id" => $DATA["message"]["chat"]["id"], "photo" => "https://webport.altervista.org/bots/telegram/lgbt/fetchTemp.php?id=". $io. "&int=" . random_int(0, 10000), "reply_to_message_id" => $DATA["message"]["message_id"]]);
-            
+            }
             } elseif ($t == ".inspire") {
             if (!moduleOn(".inspire", $DATA["message"]["chat"]["id"], $DATA, true)) break;
 
