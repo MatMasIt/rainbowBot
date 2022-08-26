@@ -59,19 +59,18 @@ function flagGetFromUser($p){
 }
 function dlImage($userId,$fileName){	
 
-
-
 $r=API("getUserProfilePhotos", ["user_id" => $userId]);
 $n=$r["result"]["photos"];
-$a=0;//count($n)-1;
+$a=0;//photo num
 $b=count($n[$a])-1;
-$file_id=$r["result"]["photos"][0][0]["file_id"];
+$file_id=$r["result"]["photos"][0][$b]["file_id"];
 if($file_id==null){
 	copy("gdImg/default.jpg",$fileName);
 	return 0;
 }
 
 $fO=API("getFile", ["file_id" => $file_id]);
+//file_put_contents("Dda",json_encode($fO, JSON_PRETTY_PRINT));
 $fu="https://api.telegram.org/file/".$GLOBALS["config"]["lgbt"]["TOKEN"]."/".$fO["result"]["file_path"]; 
 unlink($fileName);
 $ch = curl_init($fu);
